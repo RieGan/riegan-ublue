@@ -1,0 +1,94 @@
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+
+name: riegan-ublue
+description: Custom Fedora Atomic image based on Bluefin NVIDIA with dev tools, gaming, productivity, and CUDA support
+
+base-image: ghcr.io/ublue-os/bluefin-nvidia
+image-version: latest
+
+modules:
+  - type: files
+    files:
+      - source: system
+        destination: /
+
+  - type: dnf
+    repos:
+      nonfree: rpmfusion
+    install:
+      packages:
+        - git
+        - git-lfs
+        - gcc
+        - gcc-c++
+        - make
+        - cmake
+        - ninja-build
+        - meson
+        - clang
+        - llvm
+        - rust
+        - cargo
+        - golang
+        - nodejs
+        - npm
+        - python3-pip
+        - python3-devel
+        - zsh
+        - tmux
+        - neovim
+        - ripgrep
+        - fd-find
+        - fzf
+        - jq
+        - yq
+        - htop
+        - btop
+        - gamemode
+        - gamescope
+        - mangohud
+        - lutris
+        - wine
+        - wine-mono
+        - winetricks
+        - celluloid
+        - gnome-tweaks
+        - dconf-editor
+        - xorg-x11-drv-nvidia-cuda
+        - xorg-x11-drv-nvidia-cuda-libs
+        - nvidia-vaapi-driver
+
+  - type: default-flatpaks
+    configurations:
+      - notify: true
+        scope: system
+        install:
+          - com.visualstudio.code
+          - com.jetbrains.Toolbox
+          - io.podman_desktop.PodmanDesktop
+          - com.github.tchx84.Flatseal
+          - com.valvesoftware.Steam
+          - net.davidotek.pupgui2
+          - org.libreoffice.LibreOffice
+          - org.gimp.GIMP
+          - org.inkscape.Inkscape
+          - com.obsproject.Studio
+          - md.obsidian.Obsidian
+          - com.discordapp.Discord
+          - org.telegram.desktop
+          - us.zoom.Zoom
+          - org.videolan.VLC
+          - org.gnome.Loupe
+          - org.gnome.Calculator
+          - org.gnome.Calendar
+
+  - type: brew
+    nofile-limits: true
+    brew-analytics: false
+
+  - type: chezmoi
+    repository: https://github.com/RieGan/dotfiles
+    all-users: false
+    file-conflict-policy: skip
+
+  - type: signing
