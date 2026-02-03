@@ -6,11 +6,12 @@ This repository contains a BlueBuild custom OS image configuration.
 
 ```
 riegan-ublue/
-├── .github/workflows/build.yml   # GitHub Actions workflow (Quay.io)
-├── recipes/recipe.yml            # Main BlueBuild recipe
-├── files/system/                 # Custom system files copied to /
-├── cosign.pub                    # Container signing public key
-└── README.md                     # Setup instructions
+├── .devcontainer/devcontainer.json  # Dev container for local builds
+├── .github/workflows/build.yml      # GitHub Actions workflow (Quay.io)
+├── recipes/recipe.yml               # Main BlueBuild recipe
+├── files/system/                    # Custom system files copied to /
+├── cosign.pub                       # Container signing public key
+└── README.md                        # Setup instructions
 ```
 
 ## Key Files
@@ -44,5 +45,18 @@ Place files in `files/system/` mirroring the target path (e.g., `files/system/et
 ## Build
 
 Manual trigger only via GitHub Actions workflow_dispatch or local devcontainer build.
+
+### Local Build (Devcontainer)
+```bash
+bluebuild build ./recipes/recipe.yml
+```
+
+### Local Build & Push
+```bash
+bluebuild build --push ./recipes/recipe.yml \
+  --registry quay.io \
+  --registry-namespace riegan \
+  --signing-key /run/secrets/cosign.key
+```
 
 Image publishes to: `quay.io/riegan/riegan-ublue:latest`

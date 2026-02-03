@@ -1,0 +1,23 @@
+{
+  "name": "BlueBuild Dev",
+  "image": "ghcr.io/blue-build/cli:latest-installer",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "containerEnv": {
+    "REGISTRY": "quay.io",
+    "REGISTRY_NAMESPACE": "riegan"
+  },
+  "mounts": [
+    "source=${localWorkspaceFolder}/cosign.key,target=/run/secrets/cosign.key,type=bind,readonly"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.vscode-yaml",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "postCreateCommand": "bluebuild --version && echo 'BlueBuild CLI ready. Run: bluebuild build ./recipes/recipe.yml'"
+}
