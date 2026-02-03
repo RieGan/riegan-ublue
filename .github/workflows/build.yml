@@ -1,15 +1,6 @@
 name: bluebuild
 
 on:
-  schedule:
-    - cron: "00 06 * * *"
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - "**.md"
-      - ".gitignore"
-  pull_request:
   workflow_dispatch:
 
 concurrency:

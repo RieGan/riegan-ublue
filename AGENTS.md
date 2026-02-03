@@ -43,6 +43,6 @@ Place files in `files/system/` mirroring the target path (e.g., `files/system/et
 
 ## Build
 
-Builds trigger automatically on push to main. Manual trigger via GitHub Actions workflow_dispatch.
+Manual trigger only via GitHub Actions workflow_dispatch or local devcontainer build.
 
 Image publishes to: `quay.io/riegan/riegan-ublue:latest`
